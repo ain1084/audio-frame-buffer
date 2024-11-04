@@ -10,7 +10,7 @@ import type { AudioFrameBufferParams } from './audio-frame-buffer-params'
 export const createAudioFrameBufferContext = (params: AudioFrameBufferParams): AudioFrameBufferContext => {
   return {
     ...createArrayBufferViews(SharedArrayBuffer, {
-      sampleBuffer: [Float32Array, params.frameBufferSize * params.channelCount],
+      sampleBuffer: [Float32Array, params.frameCount * params.channelCount],
       usedFramesInBuffer: [Uint32Array, 1],
       totalReadFrames: [BigUint64Array, 1],
       totalWriteFrames: [BigUint64Array, 1],

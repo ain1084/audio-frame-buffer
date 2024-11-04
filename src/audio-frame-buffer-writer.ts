@@ -14,7 +14,6 @@ export class AudioFrameBufferWriter {
   private _frameIndex: number = 0
 
   /**
-   * @internal
    * Creates an instance of AudioFrameBufferWriter.
    * @param context - The context object containing:
    *   - `sampleBuffer`: The shared buffer to write audio data frames.
