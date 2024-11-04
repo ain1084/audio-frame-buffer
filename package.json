@@ -1,6 +1,6 @@
 {
     "name": "@ain1084/audio-frame-buffer",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "A specialized ring buffer for handling audio frame data, designed for multi-channel audio processing.",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
