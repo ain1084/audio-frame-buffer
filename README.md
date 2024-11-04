@@ -32,7 +32,7 @@ In this example, we demonstrate how to:
 import { createAudioFrameBufferContext, AudioFrameBufferParams } from '@ain1084/audio-frame-buffer'
 
 const params: AudioFrameBufferParams = {
-  frameBufferSize: 1024,
+  frameCount: 1024,
   channelCount: 2
 }
 

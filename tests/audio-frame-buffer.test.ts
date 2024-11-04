@@ -10,7 +10,7 @@ describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCoun
 
   beforeEach(() => {
     context = createAudioFrameBufferContext({
-      frameBufferSize: 1024,
+      frameCount: 1024,
       channelCount,
     })
     frameBuffer = new AudioFrameBuffer(context)

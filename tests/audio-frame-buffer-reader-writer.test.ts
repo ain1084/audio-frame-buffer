@@ -12,7 +12,7 @@ describe.each([1, 2, 3, 4])('AudioFrameBufferReader and AudioFrameBufferWriter w
 
   beforeEach(() => {
     context = createAudioFrameBufferContext({
-      frameBufferSize: 1024,
+      frameCount: 1024,
       channelCount,
     })
     reader = new AudioFrameBufferReader(context)
