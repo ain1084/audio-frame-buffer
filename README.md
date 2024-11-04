@@ -1,5 +1,10 @@
 # Audio Frame Buffer
 
+[![npm version](https://badge.fury.io/js/@ain1084%2Faudio-frame-buffer.svg)](https://badge.fury.io/js/@ain1084%2Faudio-frame-buffer)
+[![CI](https://github.com/ain1084/audio-frame-buffer/actions/workflows/ci.yml/badge.svg)](https://github.com/ain1084/audio-frame-buffer/actions?query=workflow%3Aci)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 `Audio Frame Buffer` is a multi-channel ring buffer library designed to handle audio frame data. This library is optimized for audio data buffering and is specifically designed for Single Producer, Single Consumer (SPSC) scenarios.
 
 ## Features
