@@ -1,3 +1,6 @@
+import { createArrayBufferViews } from '@ain1084/array-buffer-partitioner'
+import type { AudioFrameBufferParams } from './audio-frame-buffer-params'
+
 /**
  * Context for an AudioFrameBuffer.
  * This context is returned by the `createAudioFrameBufferContext` function and is designed
@@ -18,4 +21,21 @@ export type AudioFrameBufferContext = {
   readonly usedFramesInBuffer: Uint32Array
   readonly totalReadFrames: BigUint64Array
   readonly totalWriteFrames: BigUint64Array
+}
+
+/**
+ * Creates a AudioFrameBufferContext instance.
+ * @param params - The parameters for the AudioFrameBuffer.
+ * @returns A new instance of AudioFrameBufferContext.
+ */
+export const createAudioFrameBufferContext = (params: AudioFrameBufferParams): AudioFrameBufferContext => {
+  return {
+    ...createArrayBufferViews(SharedArrayBuffer, {
+      sampleBuffer: [Float32Array, params.frameCount * params.channelCount],
+      usedFramesInBuffer: [Uint32Array, 1],
+      totalReadFrames: [BigUint64Array, 1],
+      totalWriteFrames: [BigUint64Array, 1],
+    }),
+    samplesPerFrame: params.channelCount,
+  }
 }

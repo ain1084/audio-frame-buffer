@@ -64,7 +64,8 @@ export class AudioFrameBufferReader {
    * @returns The total number of frames processed across all segments.
    *   Note: The return value is in frames, not in samples.
    *
-   * @throws RangeError - If the processFrameSegment callback returns a processed length greater than the available frames in the current segment.
+   * @throws RangeError - If the processFrameSegment callback returns a processed length greater than the available
+   * frames in the current segment.
    *
    * @remarks The buffer is an array of samples, but it is always provided in frame-sized segments.
    * Each frame consists of multiple samples (e.g., for stereo, a frame contains a sample for the left channel
