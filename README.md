@@ -10,7 +10,7 @@
 ## Features
 
 - **Multi-Channel Support**: Handles multi-channel audio data and allows buffer operations on a frame-by-frame basis.
-- **Thread-Safe Sharing**: Enables efficient audio processing in multithreaded environments by safely sharing data across threads through the `AudioFrameBufferContext`.
+- **Thread-Safe Sharing**: Enables efficient audio processing in multithreaded environments by safely sharing data across threads through the `FrameBufferContext`.
 
 ## Installation
 
@@ -22,30 +22,30 @@ npm install @ain1084/audio-frame-buffer
 
 In this example, we demonstrate how to:
 
-1. Create an `AudioFrameBufferContext`, which contains the shared configuration and buffer used for audio processing.
-2. Initialize `AudioFrameBufferReader` and `AudioFrameBufferWriter` instances for reading and writing frame data.
+1. Create an `FrameBufferContext`, which contains the shared configuration and buffer used for audio processing.
+2. Initialize `FrameBufferReader` and `FrameBufferWriter` instances for reading and writing frame data.
 3. Use `read` and `write` methods with callbacks to process and store audio frames in blocks.
 
-### Creating an AudioFrameBufferContext
+### Creating an FrameBufferContext
 
 ```typescript
-import { createAudioFrameBufferContext, AudioFrameBufferParams } from '@ain1084/audio-frame-buffer'
+import { createFrameBufferContext, FrameBufferParams } from '@ain1084/audio-frame-buffer'
 
-const params: AudioFrameBufferParams = {
+const params: FrameBufferParams = {
   frameCount: 1024,
   channelCount: 2
 }
 
-const context = createAudioFrameBufferContext(params)
+const context = createFrameBufferContext(params)
 ```
 
-### Using AudioFrameBufferReader / AudioFrameBufferWriter
+### Using FrameBufferReader / FrameBufferWriter
 
 ```typescript
-import { AudioFrameBufferReader, AudioFrameBufferWriter } from '@ain1084/audio-frame-buffer'
+import { FrameBufferReader, FrameBufferWriter } from '@ain1084/audio-frame-buffer'
 
-const reader = new AudioFrameBufferReader(context)
-const writer = new AudioFrameBufferWriter(context)
+const reader = new FrameBufferReader(context)
+const writer = new FrameBufferWriter(context)
 
 // Reading data
 const framesRead = reader.read((segment, offset) => {
@@ -86,7 +86,7 @@ For more detailed documentation on the API, including parameter descriptions and
 ## Important Notes
 
 - **SPSC**: This package is designed for Single Producer, Single Consumer (SPSC) use. Only one instance of each `Reader` and `Writer` should be created; multiple instances may result in unexpected behavior.
-- **Thread Safety**: `AudioFrameBufferContext` uses `SharedArrayBuffer` to safely share data across multiple threads.
+- **Thread Safety**: `FrameBufferContext` uses `SharedArrayBuffer` to safely share data across multiple threads.
 - **Browser Requirements (COOP/COEP)**: To use `SharedArrayBuffer`, the following HTTP headers must be set:
 
   - **COOP (Cross-Origin-Opener-Policy)**:

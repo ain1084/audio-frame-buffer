@@ -1,18 +1,18 @@
 import { describe, beforeEach, test, expect, vi } from 'vitest'
-import { AudioFrameBuffer } from '../src/audio-frame-buffer'
-import { type AudioFrameBufferContext, createAudioFrameBufferContext } from '../src/audio-frame-buffer-context'
-import type { AudioFrameSegment } from '../src/audio-frame-segment'
+import { FrameBuffer } from '../src/frame-buffer'
+import { type FrameBufferContext, createFrameBufferContext } from '../src/frame-buffer-context'
+import type { FrameBufferSegment } from '../src/frame-buffer-segment'
 
-describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCount) => {
-  let context: AudioFrameBufferContext
-  let frameBuffer: AudioFrameBuffer
+describe.each([1, 2, 4])('FrameBuffer with channelCount = %i', (channelCount) => {
+  let context: FrameBufferContext
+  let frameBuffer: FrameBuffer
 
   beforeEach(() => {
-    context = createAudioFrameBufferContext({
+    context = createFrameBufferContext({
       frameCount: 1024,
       channelCount,
     })
-    frameBuffer = new AudioFrameBuffer(context)
+    frameBuffer = new FrameBuffer(context)
   })
 
   test('should correctly process segments in enumFrameSegments', () => {
@@ -20,7 +20,7 @@ describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCoun
     const availableFrames = 10
 
     // Mock callback function
-    const processFrameSegment = vi.fn((segment: AudioFrameSegment, _offset: number) => segment.frameCount)
+    const processFrameSegment = vi.fn((segment: FrameBufferSegment, _offset: number) => segment.frameCount)
 
     const result = frameBuffer.enumFrameSegments(frameIndex, availableFrames, processFrameSegment)
 
@@ -34,7 +34,7 @@ describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCoun
     const availableFrames = 10
 
     // Callback that returns more frames than available in segment
-    const processFrameSegment = vi.fn((segment: AudioFrameSegment) => segment.frameCount + 1)
+    const processFrameSegment = vi.fn((segment: FrameBufferSegment) => segment.frameCount + 1)
 
     expect(() => {
       frameBuffer.enumFrameSegments(frameIndex, availableFrames, processFrameSegment)
@@ -46,7 +46,7 @@ describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCoun
     const availableFrames = 10
 
     const processFrameSegment
-     = vi.fn((segment: AudioFrameSegment, _offset: number) => Math.min(segment.frameCount, availableFrames))
+     = vi.fn((segment: FrameBufferSegment, _offset: number) => Math.min(segment.frameCount, availableFrames))
 
     const result = frameBuffer.enumFrameSegments(frameIndex, availableFrames, processFrameSegment)
 

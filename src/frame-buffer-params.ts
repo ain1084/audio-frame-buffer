@@ -1,8 +1,8 @@
 /**
- * Parameters for creating an AudioFrameBuffer.
+ * Parameters for creating an FrameBuffer.
  * Note: The total sample count in the buffer will be `frameBufferSize * channelCount`.
  */
-export type AudioFrameBufferParams = {
+export type FrameBufferParams = {
   /** The count of the frame buffer in frames. */
   readonly frameCount: number
 
