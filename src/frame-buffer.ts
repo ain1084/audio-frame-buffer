@@ -1,11 +1,11 @@
-import type { AudioFrameBufferContext } from './audio-frame-buffer-context'
-import { AudioFrameSegment } from './audio-frame-segment'
+import type { FrameBufferContext } from './frame-buffer-context'
+import { FrameBufferSegment } from './frame-buffer-segment'
 
 /**
- * AudioFrameBuffer class
+ * FrameBuffer class
  * This class manages a buffer of audio frames.
  */
-export class AudioFrameBuffer {
+export class FrameBuffer {
   private readonly _buffer: Float32Array
   private readonly _samplesPerFrame: number
 
@@ -13,12 +13,12 @@ export class AudioFrameBuffer {
   public readonly frameCount: number
 
   /**
-   * Creates an instance of AudioFrameBuffer.
+   * Creates an instance of FrameBuffer.
    * @param context - The context object containing:
    *   - `sampleBuffer`: The shared buffer to read audio data frames from.
    *   - `samplesPerFrame`: The number of samples per frame.
    */
-  public constructor(context: AudioFrameBufferContext) {
+  public constructor(context: FrameBufferContext) {
     this._buffer = context.sampleBuffer
     this._samplesPerFrame = context.samplesPerFrame
     this.frameCount = Math.floor(this._buffer.length / this._samplesPerFrame)
@@ -34,7 +34,7 @@ export class AudioFrameBuffer {
    * @param availableFrames - The total number of frames available to process in the buffer.
    * @param processFrameSegment - The callback function invoked for each segment
    *   of the ring buffer during enumeration. It receives:
-   *   1. `segment`: An `AudioFrameSegment` instance representing the current segment to process.
+   *   1. `segment`: An `FrameBufferSegment` instance representing the current segment to process.
    *   2. `offset`: The cumulative number of frames processed so far, used as the starting index
    *      for the current segment relative to the entire data.
    *
@@ -55,7 +55,7 @@ export class AudioFrameBuffer {
   public enumFrameSegments(
     frameIndex: number,
     availableFrames: number,
-    processFrameSegment: (segment: AudioFrameSegment, offset: number) => number):
+    processFrameSegment: (segment: FrameBufferSegment, offset: number) => number):
     { totalProcessedFrames: number, nextFrameIndex: number } {
     let totalProcessedFrames = 0
     while (totalProcessedFrames < availableFrames) {
@@ -63,7 +63,7 @@ export class AudioFrameBuffer {
       const currentFrames = Math.min(this.frameCount - frameIndex, availableFrames - totalProcessedFrames)
       // Process the current frame segment using the processFrameSegment function
       const processedFrames = processFrameSegment(
-        new AudioFrameSegment(this._buffer, this._samplesPerFrame, frameIndex, currentFrames), totalProcessedFrames)
+        new FrameBufferSegment(this._buffer, this._samplesPerFrame, frameIndex, currentFrames), totalProcessedFrames)
       // Ensure the processed length does not exceed the segment length
       if (processedFrames > currentFrames) {
         throw new RangeError(`Processed frames (${processedFrames}) exceeds segment frames (${currentFrames})`)

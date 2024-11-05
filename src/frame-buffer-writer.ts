@@ -1,28 +1,28 @@
-import { AudioFrameBuffer } from './audio-frame-buffer'
-import type { AudioFrameBufferContext } from './audio-frame-buffer-context'
-import type { AudioFrameSegment } from './audio-frame-segment'
+import { FrameBuffer } from './frame-buffer'
+import type { FrameBufferContext } from './frame-buffer-context'
+import type { FrameBufferSegment } from './frame-buffer-segment'
 
 /**
- * AudioFrameBufferWriter class
+ * FrameBufferWriter class
  * This class writes audio frame data to a shared Float32Array buffer.
  * The buffer usage is tracked using a Uint32Array.
  */
-export class AudioFrameBufferWriter {
-  private readonly _frameBuffer: AudioFrameBuffer
+export class FrameBufferWriter {
+  private readonly _frameBuffer: FrameBuffer
   private readonly _usedFramesInBuffer: Uint32Array
   private readonly _totalFrames: BigUint64Array
   private _frameIndex: number = 0
 
   /**
-   * Creates an instance of AudioFrameBufferWriter.
+   * Creates an instance of FrameBufferWriter.
    * @param context - The context object containing:
    *   - `sampleBuffer`: The shared buffer to write audio data frames.
    *   - `samplesPerFrame`: The number of samples per frame.
    *   - `usedFramesInBuffer`: A Uint32Array tracking the usage of frames in the buffer.
    *   - `totalWriteFrames`: A BigUint64Array tracking the total frames written to the buffer.
    */
-  constructor(context: AudioFrameBufferContext) {
-    this._frameBuffer = new AudioFrameBuffer(context)
+  constructor(context: FrameBufferContext) {
+    this._frameBuffer = new FrameBuffer(context)
     this._usedFramesInBuffer = context.usedFramesInBuffer
     this._totalFrames = context.totalWriteFrames
   }
@@ -54,7 +54,7 @@ export class AudioFrameBufferWriter {
    *
    * @param processFrameSegment - The callback function invoked for each writable segment
    *   of the ring buffer. It receives:
-   *   1. `segment`: An AudioFrameSegment instance representing the writable segment of the buffer.
+   *   1. `segment`: An FrameBufferSegment instance representing the writable segment of the buffer.
    *   2. `offset`: The cumulative number of frames processed so far, used as the starting index
    *      for the current segment relative to the entire data.
    *
@@ -73,7 +73,7 @@ export class AudioFrameBufferWriter {
    * and one for the right channel). You must access and process the buffer in frame-sized chunks,
    * based on the structure of the frames.
    */
-  public write(processFrameSegment: (segment: AudioFrameSegment, offset: number) => number): number {
+  public write(processFrameSegment: (segment: FrameBufferSegment, offset: number) => number): number {
     const result = this._frameBuffer.enumFrameSegments(this._frameIndex, this.availableFrames, processFrameSegment)
     this._frameIndex = result.nextFrameIndex
     Atomics.add(this._usedFramesInBuffer, 0, result.totalProcessedFrames)

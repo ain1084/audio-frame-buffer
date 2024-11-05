@@ -1,8 +1,8 @@
 import { createArrayBufferViews } from '@ain1084/array-buffer-partitioner'
-import type { AudioFrameBufferParams } from './audio-frame-buffer-params'
+import type { FrameBufferParams } from './frame-buffer-params'
 
 /**
- * Context for an AudioFrameBuffer.
+ * Context for an FrameBuffer.
  * This context is returned by the `createAudioFrameBufferContext` function and is designed
  * to be shared between threads, allowing safe and efficient audio data processing in
  * multithreaded environments. It leverages a `SharedArrayBuffer` to enable
@@ -15,7 +15,7 @@ import type { AudioFrameBufferParams } from './audio-frame-buffer-params'
  * @property totalReadFrames - A counter for the total number of frames read from the buffer.
  * @property totalWriteFrames - A counter for the total number of frames written to the buffer.
  */
-export type AudioFrameBufferContext = {
+export type FrameBufferContext = {
   readonly sampleBuffer: Float32Array
   readonly samplesPerFrame: number
   readonly usedFramesInBuffer: Uint32Array
@@ -24,11 +24,11 @@ export type AudioFrameBufferContext = {
 }
 
 /**
- * Creates a AudioFrameBufferContext instance.
- * @param params - The parameters for the AudioFrameBuffer.
- * @returns A new instance of AudioFrameBufferContext.
+ * Creates a FrameBufferContext instance.
+ * @param params - The parameters for the FrameBuffer.
+ * @returns A new instance of FrameBufferContext.
  */
-export const createAudioFrameBufferContext = (params: AudioFrameBufferParams): AudioFrameBufferContext => {
+export const createFrameBufferContext = (params: FrameBufferParams): FrameBufferContext => {
   return {
     ...createArrayBufferViews(SharedArrayBuffer, {
       sampleBuffer: [Float32Array, params.frameCount * params.channelCount],

@@ -1,11 +1,11 @@
 import { describe, test, expect } from 'vitest'
-import { AudioFrameSegment } from '../src/audio-frame-segment'
+import { FrameBufferSegment } from '../src/frame-buffer-segment'
 
-describe('AudioFrameSegment', () => {
+describe('FrameBufferSegment', () => {
   const channelCount = 2
   const frameCount = 5
   const sampleData = new Float32Array(channelCount * frameCount)
-  const segment = new AudioFrameSegment(sampleData, channelCount, 0, frameCount)
+  const segment = new FrameBufferSegment(sampleData, channelCount, 0, frameCount)
 
   test('should throw RangeError if accessing out-of-bounds frame index in get', () => {
     expect(() => segment.get(-1, 0)).toThrow(RangeError) // frame < 0
