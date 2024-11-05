@@ -46,7 +46,8 @@ export class AudioFrameBuffer {
    *          - `totalProcessedFrames`: The number of frames successfully processed.
    *          - `nextIndex`: The frame index in the buffer for the next processing cycle.
    *
-   * @throws RangeError - If the processFrameSegment callback returns a processed length greater than the available frames in the current segment.
+   * @throws RangeError - If the processFrameSegment callback returns a processed length greater than the available
+   * frames in the current segment.
    *
    * @remarks The buffer is always provided in frame-sized segments, meaning that the buffer contains complete frames.
    * You must process the buffer in frame-sized chunks based on the structure of the frames.
@@ -54,13 +55,15 @@ export class AudioFrameBuffer {
   public enumFrameSegments(
     frameIndex: number,
     availableFrames: number,
-    processFrameSegment: (segment: AudioFrameSegment, offset: number) => number): { totalProcessedFrames: number, nextFrameIndex: number } {
+    processFrameSegment: (segment: AudioFrameSegment, offset: number) => number):
+    { totalProcessedFrames: number, nextFrameIndex: number } {
     let totalProcessedFrames = 0
     while (totalProcessedFrames < availableFrames) {
       // Determine the length of the current frame segment to process
       const currentFrames = Math.min(this.frameCount - frameIndex, availableFrames - totalProcessedFrames)
       // Process the current frame segment using the processFrameSegment function
-      const processedFrames = processFrameSegment(new AudioFrameSegment(this._buffer, this._samplesPerFrame, frameIndex, currentFrames), totalProcessedFrames)
+      const processedFrames = processFrameSegment(
+        new AudioFrameSegment(this._buffer, this._samplesPerFrame, frameIndex, currentFrames), totalProcessedFrames)
       // Ensure the processed length does not exceed the segment length
       if (processedFrames > currentFrames) {
         throw new RangeError(`Processed frames (${processedFrames}) exceeds segment frames (${currentFrames})`)

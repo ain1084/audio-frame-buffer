@@ -1,7 +1,6 @@
 import { describe, beforeEach, test, expect, vi } from 'vitest'
-import type { AudioFrameBufferContext } from '../src/audio-frame-buffer-context'
+import { type AudioFrameBufferContext, createAudioFrameBufferContext } from '../src/audio-frame-buffer-context'
 import type { AudioFrameSegment } from '../src/audio-frame-segment'
-import { createAudioFrameBufferContext } from '../src/create-audio-frame-buffer-context'
 import { AudioFrameBufferReader } from '../src/audio-frame-buffer-reader'
 import { AudioFrameBufferWriter } from '../src/audio-frame-buffer-writer'
 

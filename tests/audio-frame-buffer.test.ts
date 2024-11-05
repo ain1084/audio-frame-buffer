@@ -1,8 +1,7 @@
 import { describe, beforeEach, test, expect, vi } from 'vitest'
 import { AudioFrameBuffer } from '../src/audio-frame-buffer'
-import type { AudioFrameBufferContext } from '../src/audio-frame-buffer-context'
-import { createAudioFrameBufferContext } from '../src/create-audio-frame-buffer-context'
-import { AudioFrameSegment } from '../src/audio-frame-segment'
+import { type AudioFrameBufferContext, createAudioFrameBufferContext } from '../src/audio-frame-buffer-context'
+import type { AudioFrameSegment } from '../src/audio-frame-segment'
 
 describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCount) => {
   let context: AudioFrameBufferContext
@@ -46,7 +45,8 @@ describe.each([1, 2, 4])('AudioFrameBuffer with channelCount = %i', (channelCoun
     const frameIndex = frameBuffer.frameCount - 5
     const availableFrames = 10
 
-    const processFrameSegment = vi.fn((segment: AudioFrameSegment, _offset: number) => Math.min(segment.frameCount, availableFrames))
+    const processFrameSegment
+     = vi.fn((segment: AudioFrameSegment, _offset: number) => Math.min(segment.frameCount, availableFrames))
 
     const result = frameBuffer.enumFrameSegments(frameIndex, availableFrames, processFrameSegment)
 

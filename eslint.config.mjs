@@ -13,15 +13,29 @@ export default [
       parser: tsParser,
       parserOptions: {
         project: [
-          './tsconfig.json',
+          './tsconfig.tests.json',
         ],
       },
     },
     rules: {
       'no-console': 'warn',
+      '@typescript-eslint/consistent-type-imports': [
+        'error', { prefer: 'type-imports' },
+      ],
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/explicit-module-boundary-types': 'error',
+      'max-len': [
+        'warn',
+        {
+          code: 120,
+          tabWidth: 2,
+          ignoreUrls: true,
+          ignoreStrings: true,
+          ignoreTemplateLiterals: true,
+          ignoreComments: false,
+        },
+      ],
     },
   },
   ...tsEslint.configs.recommended,

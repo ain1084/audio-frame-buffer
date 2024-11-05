@@ -65,7 +65,8 @@ export class AudioFrameBufferWriter {
    * @returns The total number of frames written across all segments.
    *   Note: The return value is in frames, not in samples.
    *
-   * @throws RangeError - If the processFrameSegment callback returns a written length greater than the available space in the current segment.
+   * @throws RangeError - If the processFrameSegment callback returns a written length greater than the available space
+   * in the current segment.
    *
    * @remarks The buffer is an array of samples, but it is always provided in frame-sized segments.
    * Each frame consists of multiple samples (e.g., for stereo, a frame contains a sample for the left channel
