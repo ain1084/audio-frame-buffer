@@ -1,6 +1,6 @@
 {
     "name": "@ain1084/audio-frame-buffer",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "A specialized ring buffer for handling audio frame data, designed for multi-channel audio processing.",
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -31,22 +31,27 @@
     "license": "(MIT OR Apache-2.0)",
     "repository": {
         "type": "git",
-        "url": "https://github.com/ain1084/audio-frame-buffer.git"
+        "url": "git+https://github.com/ain1084/audio-frame-buffer.git"
     },
     "bugs": {
         "url": "https://github.com/ain1084/audio-frame-buffer/issues"
     },
     "homepage": "https://github.com/ain1084/audio-frame-buffer#readme",
     "dependencies": {
-        "@ain1084/array-buffer-partitioner": "^0.0.4"
+        "@ain1084/array-buffer-partitioner": "^0.0.5"
     },
     "devDependencies": {
         "@stylistic/eslint-plugin": "^2.10.1",
-        "@typescript-eslint/parser": "^8.13.0",
-        "eslint": "^9.14.0",
-        "typedoc": "^0.26.11",
-        "typescript": "^5.6.3",
-        "typescript-eslint": "^8.13.0",
-        "vitest": "^2.1.4"
+        "@typescript-eslint/parser": "^8.73.0",
+        "eslint": "^9.39.5",
+        "typedoc": "^0.28.20",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.73.0",
+        "vitest": "^5.1.1"
+    },
+    "overrides": {
+        "typedoc": {
+            "minimatch": "^11.0.1"
+        }
     }
 }

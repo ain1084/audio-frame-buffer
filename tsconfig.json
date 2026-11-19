@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./dist",
     "module": "esnext",
     "target": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "./dist",
@@ -15,5 +16,5 @@
     ],
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "tests", "vitest.config.ts"]
+  "exclude": ["node_modules", "dist", "tests", "vitest.config.mts"]
 }
